@@ -13,9 +13,11 @@
 # limitations under the License.
 
 from platformio.public import PlatformBase
+from platformio.util import get_systype
+from platformio.package.exception import UnknownPackageError
 
 
-class AtmelavrPlatform(PlatformBase):
+class ModernavrPlatform(PlatformBase):
 
     def configure_default_packages(self, variables, targets):
         if not variables.get("board"):
@@ -35,11 +37,11 @@ class AtmelavrPlatform(PlatformBase):
                 framework_package = "framework-arduino-avr-attiny"
 
             if build_core in (
-                "MiniCore",
-                "MegaCore",
-                "MightyCore",
-                "MajorCore",
-                "MicroCore",
+                    "MiniCore",
+                    "MegaCore",
+                    "MightyCore",
+                    "MajorCore",
+                    "MicroCore",
             ):
                 self.packages["tool-avrdude"]["version"] = "~1.70200.0"
 
@@ -66,7 +68,34 @@ class AtmelavrPlatform(PlatformBase):
         if disabled_tool in self.packages and disabled_tool != required_tool:
             del self.packages[disabled_tool]
 
+        self._configure_toolchain()
+
         return super().configure_default_packages(variables, targets)
+
+    def _configure_toolchain(self):
+        package = 'toolchain-atmelavr-libstdcxx'
+        system = get_systype()
+
+        supported_systems = {
+            'linux_x86_64',
+            'windows_amd64',
+        }
+
+        if system not in supported_systems:
+            raise UnknownPackageError(package)
+
+        pkg = self.packages[package]
+        substs = {
+            'REPO': pkg['repo'],
+            'TAG': pkg['tag'],
+            'PLATFORM': system,
+        }
+
+        url = pkg['source']
+        for k, v in substs.items():
+            url = url.replace(f'${{{k}}}', v)
+
+        pkg['version'] = url
 
     def on_run_err(self, line):  # pylint: disable=R0201
         # fix STDERR "flash written" for avrdude

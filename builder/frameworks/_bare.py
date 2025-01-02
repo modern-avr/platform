@@ -31,7 +31,7 @@ env.Append(
     ],
 
     CFLAGS=[
-        "-std=gnu11",
+        "-std=gnu23",
         "-fno-fat-lto-objects"
     ],
 
@@ -45,10 +45,10 @@ env.Append(
 
     CXXFLAGS=[
         "-Wno-error=narrowing",
+        "-Wno-volatile",
         "-fno-exceptions",
         "-fno-threadsafe-statics",
-        "-fpermissive",
-        "-std=gnu++11"
+        "-std=gnu++26",
     ],
 
     CPPDEFINES=[
