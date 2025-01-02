@@ -88,7 +88,7 @@ env.Append(
     ],
 
     CFLAGS=[
-        "-std=gnu11",
+        "-std=gnu23",
         "-fno-fat-lto-objects"
     ],
 
@@ -101,9 +101,11 @@ env.Append(
     ],
 
     CXXFLAGS=[
+        "-Wno-error=narrowing",
+        "-Wno-volatile",
         "-fno-exceptions",
         "-fno-threadsafe-statics",
-        "-fpermissive"
+        "-std=gnu++26"
     ],
 
     LINKFLAGS=machine_flags + [
@@ -123,21 +125,8 @@ env.Append(
 
     CPPPATH=[
         join(FRAMEWORK_DIR, "cores", build_core)
-    ]
+    ],
 )
-
-if build_core in ("MiniCore", "MegaCore", "MightyCore", "MajorCore"):
-    env.Append(
-        CXXFLAGS=[
-            "-std=gnu++17"
-        ],
-    )
-else:
-    env.Append(
-        CXXFLAGS=[
-            "-std=gnu++11"
-        ],
-    )
 
 #
 # Take into account bootloader size

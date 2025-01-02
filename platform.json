@@ -1,6 +1,6 @@
 {
-  "name": "atmelavr",
-  "title": "Atmel AVR",
+  "name": "modern-avr",
+  "title": "Modern Atmel AVR",
   "description": "Atmel AVR 8-bit MCUs deliver a unique combination of performance, power efficiency and design flexibility. Optimized to speed time to market-and easily adapt to new ones-they are based on the industry's most code-efficient architecture for C and assembly programming",
   "homepage": "http://www.atmel.com/products/microcontrollers/avr/default.aspx",
   "license": "Apache-2.0",
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/platformio/platform-atmelavr.git"
+    "url": "https://github.com/modern-avr/platform.git"
   },
   "version": "5.1.0",
   "frameworks": {
@@ -26,10 +26,11 @@
     }
   },
   "packages": {
-    "toolchain-atmelavr": {
+    "toolchain-atmelavr-libstdcxx": {
       "type": "toolchain",
-      "owner": "platformio",
-      "version": "~1.70300.0"
+      "tag": "v14.2.0",
+      "repo": "modern-avr/toolchain",
+      "source": "https://github.com/${REPO}/releases/download/${TAG}/toolchain-atmelavr-libstdcxx.${PLATFORM}.tar.gz"
     },
     "framework-arduino-avr": {
       "type": "framework",

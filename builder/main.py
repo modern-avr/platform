@@ -254,7 +254,7 @@ if "program" in COMMAND_LINE_TARGETS:
     sys.stderr.write(
         "Error: The `program` target is deprecated. To use a programmer for uploading "
         "firmware specify custom `upload_command`.\n"
-        "More information: https://docs.platformio.org/en/latest/platforms/"
+        "More information (upstream platform): https://docs.platformio.org/en/latest/platforms/"
         "atmelavr.html#upload-using-programmer\n")
     env.Exit(1)
 

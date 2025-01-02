@@ -193,7 +193,7 @@ if env.subst("$UPLOAD_PROTOCOL") != "custom":
 else:
     print(
         "Warning: The `custom` upload protocol is used! The upload and fuse flags may "
-        "conflict!\nMore information: "
+        "conflict!\nMore information (upstream platform): "
         "https://docs.platformio.org/en/latest/platforms/atmelavr.html"
         "#overriding-default-bootloader-command\n"
     )
